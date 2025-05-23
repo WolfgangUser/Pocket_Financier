@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { format, subMonths, startOfMonth, endOfMonth, isWithinInterval, parseISO, getMonth, getYear } from 'date-fns';
 import { FiPieChart } from 'react-icons/fi';
-import { ResponsiveContainer, PieChart, Pie, Cell, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from 'recharts';
 import { motion } from 'framer-motion';
 import { useTransactions } from '../hooks/useTransactions';
 
@@ -100,11 +100,11 @@ export default function Reports() {
   
   // Group by month for trend chart
   const getMonthlyData = () => {
-    const months = [];
+    const monthsData = [];
     let date = new Date(dateRange.start);
     
     while (date <= dateRange.end) {
-      months.push({
+      monthsData.push({
         month: format(date, 'MMM yyyy'),
         monthKey: `${getYear(date)}-${getMonth(date)}`,
         income: 0,
@@ -116,7 +116,7 @@ export default function Reports() {
     filteredTransactions.forEach(transaction => {
       const date = parseISO(transaction.date);
       const monthKey = `${getYear(date)}-${getMonth(date)}`;
-      const monthData = months.find(m => m.monthKey === monthKey);
+      const monthData = monthsData.find(m => m.monthKey === monthKey);
       
       if (monthData) {
         if (transaction.type === 'income') {
@@ -127,7 +127,7 @@ export default function Reports() {
       }
     });
     
-    return months;
+    return monthsData;
   };
   
   const monthlyData = getMonthlyData();

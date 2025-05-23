@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { FiSettings, FiUser, FiMail, FiLock, FiLogOut, FiList, FiSun, FiMoon, FiCheck } from 'react-icons/fi';
+import { FiSettings, FiUser, FiMail, FiLock, FiLogOut, FiSun, FiMoon, FiCheck } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 import { useTheme } from '../hooks/useTheme';
-import { useTransactions, Category } from '../hooks/useTransactions';
+import { useTransactions } from '../hooks/useTransactions';
+import type { Category } from '../context/TransactionsContext';
 
 export default function Settings() {
   const { user, logout } = useAuth();
