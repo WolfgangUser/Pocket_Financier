@@ -268,7 +268,7 @@ export default function Budget() {
         {/* Budget list */}
         {budgets.length > 0 ? (
           <div className="space-y-4">
-            {budgets.map((budget, index) => {
+            {budgets.map((budget) => {
               // Calculate current spending
               const currentSpending = expensesByCategory[budget.category] || 0;
               // Calculate percentage
@@ -391,7 +391,7 @@ export default function Budget() {
                         ></div>
                       </div>
                       
-                      <div className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+                      <div className="mt-2 text-xs text-neutral-900 dark:text-neutral-100">
                         {currentSpending > budget.amount ? (
                           <p className="text-error-600 dark:text-error-400">
                             You've exceeded your budget by {formatCurrency(currentSpending - budget.amount)}
@@ -447,29 +447,27 @@ export default function Budget() {
               <div className="space-y-4">
                 {Object.entries(expensesByCategory)
                   .filter(([category]) => !budgets.some(budget => budget.category === category))
-                  .map(([category, amount], index) => (
-                    <div key={index} className="flex justify-between items-center p-3 bg-neutral-50 dark:bg-neutral-750 rounded-lg">
-                      <span className="font-medium text-neutral-800 dark:text-neutral-200">
-                        {category}
-                      </span>
-                      <div className="flex items-center">
-                        <span className="text-neutral-900 dark:text-white font-medium mr-3">
-                          {formatCurrency(amount)}
-                        </span>
-                        <button
-                          onClick={() => {
-                            setNewBudget({
-                              category,
-                              amount: Math.ceil(amount / 100) * 100, // Round up to nearest 100
-                              color: '#FF5630',
-                              icon: 'dollar-sign',
-                            });
-                            setIsAddingBudget(true);
-                          }}
-                          className="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 px-2 py-1 rounded-md hover:bg-primary-200 dark:hover:bg-primary-800/30"
-                        >
-                          Create Budget
-                        </button>
+                  .map(([category, amount]) => (
+                    <div key={category} className="flex items-center">
+                      <div 
+                        className="w-4 h-4 rounded-full mr-3" 
+                        style={{ backgroundColor: categories.find(c => c.name === category)?.color || '#FF5630' }}
+                      />
+                      <div className="flex-1">
+                        <div className="flex justify-between mb-1">
+                          <span className="font-medium text-neutral-900 dark:text-white">
+                            {category}
+                          </span>
+                          <span className="font-medium text-neutral-900 dark:text-white">
+                            {formatCurrency(amount)}
+                          </span>
+                        </div>
+                        <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2">
+                          <div 
+                            className="h-2 rounded-full bg-error-500" 
+                            style={{ width: '100%' }}
+                          />
+                        </div>
                       </div>
                     </div>
                   ))}

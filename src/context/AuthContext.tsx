@@ -99,22 +99,41 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     checkAuth();
   }, []);
 
+  // Store registered users
+  const getRegisteredUsers = () => {
+    const users = localStorage.getItem('registeredUsers');
+    return users ? JSON.parse(users) : {};
+  };
+
   // Login function
   const login = async (email: string, password: string) => {
     dispatch({ type: 'SET_LOADING', payload: true });
     
     try {
-      // This is a mock login - in a real app, you would call your API
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
-      // Demo credentials check
+      // Check demo account
       if (email === 'demo@example.com' && password === 'password') {
         const user = {
-          id: '1',
+          id: 'demo',
           name: 'Demo User',
           email: 'demo@example.com',
           avatar: 'https://i.pravatar.cc/150?u=demo@example.com',
+        };
+        
+        localStorage.setItem('user', JSON.stringify(user));
+        dispatch({ type: 'LOGIN', payload: user });
+        return;
+      }
+
+      // Check registered users
+      const registeredUsers = getRegisteredUsers();
+      const userRecord = registeredUsers[email];
+
+      if (userRecord && userRecord.password === password) {
+        const user = {
+          id: userRecord.id,
+          name: userRecord.name,
+          email: userRecord.email,
+          avatar: `https://i.pravatar.cc/150?u=${email}`,
         };
         
         localStorage.setItem('user', JSON.stringify(user));
@@ -132,12 +151,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'SET_LOADING', payload: true });
     
     try {
-      // This is a mock registration - in a real app, you would call your API
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const registeredUsers = getRegisteredUsers();
       
+      if (registeredUsers[email]) {
+        dispatch({ type: 'SET_ERROR', payload: 'Email already registered' });
+        return;
+      }
+
+      const userId = Date.now().toString();
+      const newUser = {
+        id: userId,
+        name,
+        email,
+        password,
+      };
+
+      // Save to registered users
+      registeredUsers[email] = newUser;
+      localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+
+      // Create user session
       const user = {
-        id: '1',
+        id: userId,
         name,
         email,
         avatar: `https://i.pravatar.cc/150?u=${email}`,

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FiMenu, FiPlus, FiBell, FiX } from 'react-icons/fi';
+import { FiMenu, FiPlus, FiX } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from '../common/ThemeToggle';
@@ -9,7 +9,7 @@ import { useAuth } from '../../hooks/useAuth';
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showTransactionForm, setShowTransactionForm] = useState(false);
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(prev => !prev);

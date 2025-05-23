@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { format, subMonths, startOfMonth, endOfMonth, isWithinInterval, parseISO, getMonth, getYear } from 'date-fns';
-import { FiPieChart, FiTrendingUp, FiCalendar } from 'react-icons/fi';
-import { ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from 'recharts';
+import { FiPieChart } from 'react-icons/fi';
+import { ResponsiveContainer, PieChart, Pie, Cell, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from 'recharts';
 import { motion } from 'framer-motion';
 import { useTransactions } from '../hooks/useTransactions';
 

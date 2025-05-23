@@ -1,5 +1,5 @@
 import { createContext, useReducer, ReactNode, useEffect } from 'react';
-import { format } from 'date-fns';
+import { useAuth } from '../hooks/useAuth';
 
 // Define transaction type
 export type Transaction = {
@@ -118,34 +118,40 @@ function transactionsReducer(state: TransactionsState, action: TransactionsActio
 // Create provider
 export function TransactionsProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(transactionsReducer, initialState);
+  const { user } = useAuth();
 
   // Load initial data from localStorage
   useEffect(() => {
     const loadInitialData = () => {
       try {
-        // Load transactions
-        const storedTransactions = localStorage.getItem('transactions');
-        if (storedTransactions) {
-          dispatch({ 
-            type: 'FETCH_TRANSACTIONS', 
-            payload: JSON.parse(storedTransactions) 
-          });
-        }
+        if (user) {
+          // Load user-specific transactions
+          const storedTransactions = localStorage.getItem(`transactions_${user.id}`);
+          if (storedTransactions) {
+            dispatch({ 
+              type: 'FETCH_TRANSACTIONS', 
+              payload: JSON.parse(storedTransactions) 
+            });
+          }
 
-        // Load categories
-        const storedCategories = localStorage.getItem('categories');
-        if (storedCategories) {
-          dispatch({ 
-            type: 'FETCH_CATEGORIES', 
-            payload: JSON.parse(storedCategories) 
-          });
+          // Load categories
+          const storedCategories = localStorage.getItem('categories');
+          if (storedCategories) {
+            dispatch({ 
+              type: 'FETCH_CATEGORIES', 
+              payload: JSON.parse(storedCategories) 
+            });
+          } else {
+            // Initialize with default categories if none exist
+            dispatch({ 
+              type: 'FETCH_CATEGORIES', 
+              payload: defaultCategories 
+            });
+            localStorage.setItem('categories', JSON.stringify(defaultCategories));
+          }
         } else {
-          // Initialize with default categories if none exist
-          dispatch({ 
-            type: 'FETCH_CATEGORIES', 
-            payload: defaultCategories 
-          });
-          localStorage.setItem('categories', JSON.stringify(defaultCategories));
+          // Clear transactions when no user is logged in
+          dispatch({ type: 'FETCH_TRANSACTIONS', payload: [] });
         }
       } catch (error) {
         console.error('Error loading data from localStorage:', error);
@@ -157,12 +163,14 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
     };
 
     loadInitialData();
-  }, []);
+  }, [user]);
 
   // Save transactions to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('transactions', JSON.stringify(state.transactions));
-  }, [state.transactions]);
+    if (user) {
+      localStorage.setItem(`transactions_${user.id}`, JSON.stringify(state.transactions));
+    }
+  }, [state.transactions, user]);
 
   // Save categories to localStorage whenever they change
   useEffect(() => {

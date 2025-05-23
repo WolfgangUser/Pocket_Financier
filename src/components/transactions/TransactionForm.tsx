@@ -25,10 +25,15 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
   });
 
   const onSubmit = (data: TransactionFormData) => {
+    const transactionData = {
+      ...data,
+      type, // Use the selected type from state
+    };
+
     if (transaction) {
-      updateTransaction({ ...data, id: transaction.id });
+      updateTransaction({ ...transactionData, id: transaction.id });
     } else {
-      addTransaction(data);
+      addTransaction(transactionData);
     }
     onClose();
   };
