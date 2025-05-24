@@ -98,7 +98,7 @@ summaryData.savingsRate =
     acc[category] += amount;
     return acc;
   }, {} as Record<string, number>);
-  
+
   // Convert to array for pie chart
   const expensePieData = Object.entries(expensesByCategory).map(([name, value]) => {
     const categoryInfo = categories.find(c => c.name === name) || { color: '#FF5630' };
@@ -320,7 +320,7 @@ summaryData.savingsRate =
                     outerRadius={100}
                     fill="#8884d8"
                     dataKey="value"
-                    label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                    //label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
                   >
                     {expensePieData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
