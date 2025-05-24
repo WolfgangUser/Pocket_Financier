@@ -5,6 +5,13 @@ import { ResponsiveContainer, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, 
 import { motion } from 'framer-motion';
 import { useTransactions } from '../hooks/useTransactions';
 
+interface MonthlyData {
+  month: string;
+  monthKey: string;
+  income: number;
+  expense: number;
+}
+
 export default function Reports() {
   const { transactions, categories } = useTransactions();
   const [reportPeriod, setReportPeriod] = useState<'month' | 'threeMonths' | 'sixMonths' | 'year'>('month');
@@ -100,7 +107,7 @@ export default function Reports() {
   
   // Group by month for trend chart
   const getMonthlyData = () => {
-    const monthsData = [];
+    const monthsData: MonthlyData[] = [];
     let date = new Date(dateRange.start);
     
     while (date <= dateRange.end) {
