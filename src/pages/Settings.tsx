@@ -391,7 +391,7 @@ export default function Settings() {
                               {category.name}
                             </span>
                           </div>
-                        ))}
+                        ))} 
                     </div>
                   </div>
                 </div>

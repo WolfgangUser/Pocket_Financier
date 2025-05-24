@@ -16,7 +16,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
   
   const { register, handleSubmit, formState: { errors } } = useForm<TransactionFormData>({
     defaultValues: transaction || {
-      amount: 0,
+      amount: undefined,
       description: '',
       category: '',
       date: new Date().toISOString().split('T')[0],
@@ -117,7 +117,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
             className="form-input pl-10"
             placeholder="What was this for?"
             {...register('description', { 
-              required: 'Description is required',
+              //required: 'Description is required',
               maxLength: { value: 100, message: 'Description is too long' },
             })}
           />

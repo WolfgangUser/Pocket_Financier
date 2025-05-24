@@ -15,6 +15,10 @@ export default function TransactionList() {
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
   const [showFilters, setShowFilters] = useState(false);
 
+  const openTransactionForm = () => {
+    setEditingTransaction({} as Transaction); // Открываем пустую форму
+  };
+
   // Filter and sort transactions
   const filteredTransactions = transactions
     .filter(transaction => {
@@ -68,7 +72,7 @@ export default function TransactionList() {
         description="Add your first income or expense to start tracking your finances."
         action={
           <button
-            onClick={() => setEditingTransaction({} as Transaction)}
+            onClick={openTransactionForm}
             className="btn btn-primary"
           >
             Add Transaction

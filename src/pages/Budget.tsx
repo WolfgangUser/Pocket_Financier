@@ -24,10 +24,20 @@ export default function Budget() {
   const [editingBudgetId, setEditingBudgetId] = useState<string | null>(null);
   const [newBudget, setNewBudget] = useState<Omit<Budget, 'id'>>({
     category: '',
-    amount: 0,
+    amount: NaN,
     color: '#FF5630',
     icon: 'dollar-sign',
   });
+
+  // Сброс формы
+  const resetForm = () => {
+    setNewBudget({
+      category: '',
+      amount: NaN,
+      color: '#FF5630',
+      icon: 'dollar-sign',
+    });
+  };
 
   // Date range for filtering
   const dateRange = {
@@ -46,13 +56,17 @@ export default function Budget() {
 
   // Calculate expenses by category
   const expensesByCategory = useMemo(() => {
-    return monthTransactions.reduce((acc, transaction) => {
-      const { category, amount } = transaction;
-      if (!acc[category]) {
-        acc[category] = 0;
-      }
-      acc[category] += amount;
-      return acc;
+  return monthTransactions.reduce((acc, transaction) => {
+    const { category } = transaction;
+    const amount = typeof transaction.amount === 'string'
+      ? parseFloat(transaction.amount) || 0
+      : transaction.amount;
+
+    if (!acc[category]) {
+      acc[category] = 0;
+    }
+    acc[category] += amount;
+    return acc;
     }, {} as Record<string, number>);
   }, [monthTransactions]);
 
@@ -64,30 +78,39 @@ export default function Budget() {
 
   // Add a new budget
   const handleAddBudget = () => {
-    if (newBudget.category && newBudget.amount > 0) {
-      const categoryInfo = categories.find(c => c.name === newBudget.category);
-      
-      const budgetToAdd: Budget = {
-        id: Date.now().toString(),
-        category: newBudget.category,
-        amount: newBudget.amount,
-        color: categoryInfo?.color || '#FF5630',
-        icon: categoryInfo?.icon || 'dollar-sign',
-      };
-      
-      const updatedBudgets = [...budgets, budgetToAdd];
-      saveBudgets(updatedBudgets);
-      
-      // Reset form
-      setNewBudget({
-        category: '',
-        amount: 0,
-        color: '#FF5630',
-        icon: 'dollar-sign',
-      });
-      setIsAddingBudget(false);
-    }
+  if (!newBudget.category) {
+    alert('Please select a category.');
+    return;
+  }
+
+  if (newBudget.amount <= 0) {
+    alert('Please enter a valid budget amount greater than 0.');
+    return;
+  }
+
+  const categoryInfo = categories.find(c => c.name === newBudget.category);
+
+  const budgetToAdd: Budget = {
+    id: Date.now().toString(),
+    category: newBudget.category,
+    amount: newBudget.amount,
+    color: categoryInfo?.color || '#FF5630',
+    icon: categoryInfo?.icon || 'dollar-sign',
   };
+
+  const updatedBudgets = [...budgets, budgetToAdd];
+  saveBudgets(updatedBudgets);
+
+  // Reset form
+  setNewBudget({
+    category: '',
+    amount: NaN,
+    color: '#FF5630',
+    icon: 'dollar-sign',
+  });
+
+  setIsAddingBudget(false);
+};
 
   // Update an existing budget
   const handleUpdateBudget = (id: string, updatedBudget: Partial<Budget>) => {
@@ -127,7 +150,7 @@ export default function Budget() {
 
   // Get current month name
   const currentMonthName = format(currentMonth, 'MMMM yyyy');
-  
+
   // Animation variants
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -140,7 +163,7 @@ export default function Budget() {
       },
     }),
   };
-  
+
   // Filter expense categories
   const expenseCategories = categories.filter(
     category => category.type === 'expense' || category.type === 'both'
@@ -155,7 +178,6 @@ export default function Budget() {
             Budget Planner
           </h1>
         </div>
-        
         <div className="flex items-center bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 p-1">
           <button
             onClick={() => changeMonth('prev')}
@@ -190,7 +212,10 @@ export default function Budget() {
             Monthly Budgets
           </h2>
           <button
-            onClick={() => setIsAddingBudget(!isAddingBudget)}
+            onClick={() => {
+              setIsAddingBudget(!isAddingBudget);
+              if (!isAddingBudget) resetForm(); // Сброс при открытии
+            }}
             className="btn btn-primary"
           >
             {isAddingBudget ? 'Cancel' : (
@@ -201,6 +226,7 @@ export default function Budget() {
             )}
           </button>
         </div>
+
 
         {/* Add budget form */}
         {isAddingBudget && (
@@ -214,7 +240,6 @@ export default function Budget() {
             <h3 className="text-md font-medium text-neutral-900 dark:text-white mb-4">
               Create New Budget
             </h3>
-            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
                 <label htmlFor="category" className="form-label">
@@ -222,7 +247,7 @@ export default function Budget() {
                 </label>
                 <select
                   id="category"
-                  className="form-input"
+                  className={`form-input ${!newBudget.category ? 'border-error-500' : ''}`}
                   value={newBudget.category}
                   onChange={(e) => setNewBudget({ ...newBudget, category: e.target.value })}
                   required
@@ -234,8 +259,10 @@ export default function Budget() {
                     </option>
                   ))}
                 </select>
+                {!newBudget.category && (
+                  <p className="text-error-500 text-sm mt-1">Please select a category.</p>
+                )}
               </div>
-              
               <div>
                 <label htmlFor="amount" className="form-label">
                   Budget Amount
@@ -244,15 +271,25 @@ export default function Budget() {
                   id="amount"
                   type="number"
                   min="0"
+                  placeholder="0.00"
                   step="0.01"
-                  className="form-input"
-                  value={newBudget.amount}
-                  onChange={(e) => setNewBudget({ ...newBudget, amount: parseFloat(e.target.value) || 0 })}
+                  className={`form-input ${newBudget.amount <= 0 ? 'border-error-500' : ''}`}
+                  value={isNaN(newBudget.amount) || newBudget.amount === 0 ? '' : newBudget.amount}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    const parsedValue = value === '' ? NaN : parseFloat(value);
+                    setNewBudget({
+                      ...newBudget,
+                      amount: parsedValue,
+                    });
+                  }}
                   required
                 />
+                {newBudget.amount <= 0 && (
+                  <p className="text-error-500 text-sm mt-1">Amount must be greater than 0.</p>
+                )}
               </div>
             </div>
-            
             <div className="flex justify-end">
               <button
                 onClick={handleAddBudget}
@@ -282,10 +319,7 @@ export default function Budget() {
               }
 
               return (
-                <div 
-                  key={budget.id}
-                  className="p-4 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg"
-                >
+                <div key={budget.id} className="p-4 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg">
                   {editingBudgetId === budget.id ? (
                     <div className="space-y-4">
                       <div className="flex justify-between">
@@ -301,7 +335,6 @@ export default function Budget() {
                           </button>
                         </div>
                       </div>
-                      
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label className="form-label">Category</label>
@@ -317,7 +350,6 @@ export default function Budget() {
                             ))}
                           </select>
                         </div>
-                        
                         <div>
                           <label className="form-label">Budget Amount</label>
                           <input
@@ -326,11 +358,12 @@ export default function Budget() {
                             step="0.01"
                             className="form-input"
                             value={budget.amount}
-                            onChange={(e) => handleUpdateBudget(budget.id, { amount: parseFloat(e.target.value) || 0 })}
+                            onChange={(e) =>
+                              handleUpdateBudget(budget.id, { amount: parseFloat(e.target.value) || 0 })
+                            }
                           />
                         </div>
                       </div>
-                      
                       <div className="flex justify-end">
                         <button
                           onClick={() => setEditingBudgetId(null)}
@@ -352,7 +385,6 @@ export default function Budget() {
                             Budget: {formatCurrency(budget.amount)}
                           </p>
                         </div>
-                        
                         <div className="flex space-x-2">
                           <button
                             onClick={() => setEditingBudgetId(budget.id)}
@@ -368,7 +400,6 @@ export default function Budget() {
                           </button>
                         </div>
                       </div>
-                      
                       <div className="flex justify-between text-sm mb-1">
                         <span className="text-neutral-700 dark:text-neutral-300">
                           Spent: {formatCurrency(currentSpending)}
@@ -383,14 +414,12 @@ export default function Budget() {
                           {percentage.toFixed(0)}%
                         </span>
                       </div>
-                      
                       <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2.5">
                         <div 
                           className={`${statusColor} h-2.5 rounded-full transition-all duration-500`} 
                           style={{ width: `${percentage}%` }}
                         ></div>
                       </div>
-                      
                       <div className="mt-2 text-xs text-neutral-900 dark:text-neutral-100">
                         {currentSpending > budget.amount ? (
                           <p className="text-error-600 dark:text-error-400">
@@ -418,7 +447,10 @@ export default function Budget() {
               Create budgets to track your spending and stay on top of your financial goals.
             </p>
             <button
-              onClick={() => setIsAddingBudget(true)}
+              onClick={() => {
+                setIsAddingBudget(true);
+                resetForm();
+              }}
               className="btn btn-primary"
             >
               <FiPlusCircle className="h-4 w-4 mr-1" />
@@ -440,7 +472,6 @@ export default function Budget() {
           <h2 className="text-lg font-medium text-neutral-900 dark:text-white mb-4">
             Unbudgeted Expenses
           </h2>
-          
           {Object.entries(expensesByCategory)
             .filter(([category]) => !budgets.some(budget => budget.category === category))
             .length > 0 ? (
@@ -459,7 +490,7 @@ export default function Budget() {
                             {category}
                           </span>
                           <span className="font-medium text-neutral-900 dark:text-white">
-                            {formatCurrency(amount)}
+                            {formatCurrency(amount)} {/* Тут мы уверены, что amount — число */}
                           </span>
                         </div>
                         <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2">

@@ -58,6 +58,14 @@ const initialState: TransactionsState = {
   error: null,
 };
 
+const defaultCategories: Category[] = [
+  { id: '1', name: 'Food & Dining', color: '#FF5630', icon: 'utensils', type: 'expense' },
+  { id: '2', name: 'Transportation', color: '#FFAB00', icon: 'car', type: 'expense' },
+  { id: '3', name: 'Housing', color: '#36B37E', icon: 'home', type: 'expense' },
+  { id: '4', name: 'Salary', color: '#36B37E', icon: 'wallet', type: 'income' },
+  { id: '5', name: 'Other', color: '#6B778C', icon: 'circle', type: 'both' },
+];
+
 // Create context
 export const TransactionsContext = createContext<TransactionsContextType | undefined>(undefined);
 
@@ -135,7 +143,7 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
           }
 
           // Load categories
-          const storedCategories = localStorage.getItem('categories');
+          const storedCategories = localStorage.getItem(`categories_${user.id}`);
           if (storedCategories) {
             dispatch({ 
               type: 'FETCH_CATEGORIES', 
@@ -145,13 +153,14 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
             // Initialize with default categories if none exist
             dispatch({ 
               type: 'FETCH_CATEGORIES', 
-              payload: defaultCategories 
+              payload: defaultCategories
             });
-            localStorage.setItem('categories', JSON.stringify(defaultCategories));
+            localStorage.setItem(`categories_${user.id}`, JSON.stringify(defaultCategories));
           }
         } else {
           // Clear transactions when no user is logged in
           dispatch({ type: 'FETCH_TRANSACTIONS', payload: [] });
+          dispatch({ type: 'FETCH_CATEGORIES', payload: [] });
         }
       } catch (error) {
         console.error('Error loading data from localStorage:', error);
@@ -174,8 +183,10 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
 
   // Save categories to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('categories', JSON.stringify(state.categories));
-  }, [state.categories]);
+    if (user) {
+      localStorage.setItem(`categories_${user.id}`, JSON.stringify(state.categories));
+    }
+  }, [state.categories, user]);
 
   // Add a new transaction
   const addTransaction = (transaction: Omit<Transaction, 'id'>) => {
@@ -233,18 +244,3 @@ export function TransactionsProvider({ children }: { children: ReactNode }) {
     </TransactionsContext.Provider>
   );
 }
-
-// Default categories
-const defaultCategories: Category[] = [
-  { id: '1', name: 'Food & Dining', color: '#FF5630', icon: 'utensils', type: 'expense' },
-  { id: '2', name: 'Transportation', color: '#FFAB00', icon: 'car', type: 'expense' },
-  { id: '3', name: 'Housing', color: '#36B37E', icon: 'home', type: 'expense' },
-  { id: '4', name: 'Entertainment', color: '#6554C0', icon: 'film', type: 'expense' },
-  { id: '5', name: 'Shopping', color: '#00B8D9', icon: 'shopping-bag', type: 'expense' },
-  { id: '6', name: 'Health', color: '#FF8B00', icon: 'heartbeat', type: 'expense' },
-  { id: '7', name: 'Utilities', color: '#6B778C', icon: 'bolt', type: 'expense' },
-  { id: '8', name: 'Salary', color: '#36B37E', icon: 'wallet', type: 'income' },
-  { id: '9', name: 'Investments', color: '#00B8D9', icon: 'chart-line', type: 'income' },
-  { id: '10', name: 'Gifts', color: '#6554C0', icon: 'gift', type: 'income' },
-  { id: '11', name: 'Other Income', color: '#FF8B00', icon: 'money-bill', type: 'income' },
-];

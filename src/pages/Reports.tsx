@@ -58,42 +58,46 @@ export default function Reports() {
   };
   
   // Calculate summary data
+  // Calculate summary data
   const summaryData = {
     income: filteredTransactions
       .filter(t => t.type === 'income')
-      .reduce((sum, t) => sum + t.amount, 0),
-    
+      .reduce((sum, t) => sum + (typeof t.amount === 'string' ? parseFloat(t.amount) || 0 : t.amount), 0),
     expense: filteredTransactions
       .filter(t => t.type === 'expense')
-      .reduce((sum, t) => sum + t.amount, 0),
-    
-    balance: filteredTransactions
-      .filter(t => t.type === 'income')
-      .reduce((sum, t) => sum + t.amount, 0) - 
+      .reduce((sum, t) => sum + (typeof t.amount === 'string' ? parseFloat(t.amount) || 0 : t.amount), 0),
+    balance: 
+      filteredTransactions
+        .filter(t => t.type === 'income')
+        .reduce((sum, t) => sum + (typeof t.amount === 'string' ? parseFloat(t.amount) || 0 : t.amount), 0)
+      -
       filteredTransactions
         .filter(t => t.type === 'expense')
-        .reduce((sum, t) => sum + t.amount, 0),
-    
-    savingsRate: filteredTransactions
-      .filter(t => t.type === 'income')
-      .reduce((sum, t) => sum + t.amount, 0) > 0 
-        ? (filteredTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0) - 
-          filteredTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0)) / 
-          filteredTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0) * 100
-        : 0,
+        .reduce((sum, t) => sum + (typeof t.amount === 'string' ? parseFloat(t.amount) || 0 : t.amount), 0),
+    savingsRate: 0
   };
+
+// Пересчитаем savingsRate после баланса
+summaryData.savingsRate =
+  summaryData.income > 0
+    ? (summaryData.balance / summaryData.income) * 100
+    : 0;
   
   // Group transactions by category
   const expensesByCategory = filteredTransactions
-    .filter(t => t.type === 'expense')
-    .reduce((acc, transaction) => {
-      const { category, amount } = transaction;
-      if (!acc[category]) {
-        acc[category] = 0;
-      }
-      acc[category] += amount;
-      return acc;
-    }, {} as Record<string, number>);
+  .filter(t => t.type === 'expense')
+  .reduce((acc, transaction) => {
+    const { category } = transaction;
+    const amount = typeof transaction.amount === 'string'
+      ? parseFloat(transaction.amount) || 0
+      : transaction.amount;
+
+    if (!acc[category]) {
+      acc[category] = 0;
+    }
+    acc[category] += amount;
+    return acc;
+  }, {} as Record<string, number>);
   
   // Convert to array for pie chart
   const expensePieData = Object.entries(expensesByCategory).map(([name, value]) => {
@@ -127,9 +131,13 @@ export default function Reports() {
       
       if (monthData) {
         if (transaction.type === 'income') {
-          monthData.income += transaction.amount;
+          monthData.income += typeof transaction.amount === 'string'
+            ? parseFloat(transaction.amount) || 0
+            : transaction.amount;
         } else {
-          monthData.expense += transaction.amount;
+          monthData.expense += typeof transaction.amount === 'string'
+            ? parseFloat(transaction.amount) || 0
+            : transaction.amount;
         }
       }
     });

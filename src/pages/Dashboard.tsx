@@ -35,11 +35,11 @@ export default function Dashboard() {
   const summaryData = useMemo(() => {
     const income = monthTransactions
       .filter((t) => t.type === 'income')
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => parseFloat(sum.toString()) + parseFloat(t.amount.toString()), 0);
     
     const expenses = monthTransactions
       .filter((t) => t.type === 'expense')
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => parseFloat(sum.toString()) + parseFloat(t.amount.toString()), 0);
     
     return {
       income,
@@ -63,12 +63,19 @@ export default function Dashboard() {
     const filteredTransactions = transactions.filter(t => t.type === type);
     const categoryTotals = filteredTransactions.reduce((acc, transaction) => {
       const { category, amount } = transaction;
+
+      const numericAmount = typeof amount === 'string'
+      ? parseFloat(amount) || 0
+      : typeof amount === 'number'
+        ? amount
+        : 0;
+
       if (!acc[category]) {
         acc[category] = 0;
       }
-      acc[category] += amount;
+      acc[category] += numericAmount;
       return acc;
-    }, {});
+    }, {} as Record<string, number>);
 
     // Convert to array format for charts
     return Object.entries(categoryTotals).map(([name, value]) => {
@@ -122,7 +129,7 @@ export default function Dashboard() {
       const dayStr = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
       const dayTotal = monthTransactions
         .filter(t => t.type === 'expense' && t.date.startsWith(dayStr))
-        .reduce((sum, t) => sum + t.amount, 0);
+        .reduce((sum, t) => sum + parseFloat(t.amount.toString()), 0);
 
       return {
         day: day.toString(),
@@ -243,6 +250,7 @@ export default function Dashboard() {
       {/* Charts section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Expenses by category chart */}
+        {/* Incomes by category chart */}
         <motion.div
           custom={3}
           initial="hidden"
@@ -253,16 +261,15 @@ export default function Dashboard() {
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-medium text-neutral-900 dark:text-white flex items-center">
               <FiPieChart className="mr-2 text-neutral-500 dark:text-neutral-400" />
-              Expenses by Category
+              Incomes by Category
             </h2>
           </div>
-          
           <div className="h-64">
-            {summaryData.expensesByCategory.length > 0 ? (
+            {summaryData.incomeByCategory.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={summaryData.expensesByCategory}
+                    data={summaryData.incomeByCategory}
                     cx="50%"
                     cy="50%"
                     innerRadius={60}
@@ -272,7 +279,7 @@ export default function Dashboard() {
                     labelLine={false}
                     label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
                   >
-                    {summaryData.expensesByCategory.map((entry, index) => (
+                    {summaryData.incomeByCategory.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
@@ -284,7 +291,7 @@ export default function Dashboard() {
             ) : (
               <div className="h-full flex items-center justify-center">
                 <p className="text-neutral-500 dark:text-neutral-400">
-                  No expense data for this month
+                  No income data for this month
                 </p>
               </div>
             )}
