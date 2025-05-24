@@ -19,7 +19,7 @@ export default function Sidebar() {
           <div className="flex items-center justify-center w-8 h-8 rounded-md bg-primary-500 text-white font-bold mr-2">
             F
           </div>
-          <span className="text-xl font-semibold text-neutral-900 dark:text-white">FinTrack</span>
+          <span className="text-xl font-semibold text-neutral-900 dark:text-white">PocketFin</span>
         </motion.div>
       </div>
       
@@ -46,7 +46,7 @@ export default function Sidebar() {
               `nav-link ${isActive ? 'active' : ''}`
             }>
               <FiHome className="nav-link-icon" />
-              Dashboard
+              Дашборд
             </NavLink>
           </li>
           <li>
@@ -54,7 +54,7 @@ export default function Sidebar() {
               `nav-link ${isActive ? 'active' : ''}`
             }>
               <FiList className="nav-link-icon" />
-              Transactions
+              Транзакции
             </NavLink>
           </li>
           <li>
@@ -62,7 +62,7 @@ export default function Sidebar() {
               `nav-link ${isActive ? 'active' : ''}`
             }>
               <FiPieChart className="nav-link-icon" />
-              Reports
+              Отчетность
             </NavLink>
           </li>
           <li>
@@ -70,7 +70,7 @@ export default function Sidebar() {
               `nav-link ${isActive ? 'active' : ''}`
             }>
               <FiTarget className="nav-link-icon" />
-              Budget
+              Бюджет
             </NavLink>
           </li>
           <li>
@@ -78,7 +78,7 @@ export default function Sidebar() {
               `nav-link ${isActive ? 'active' : ''}`
             }>
               <FiSettings className="nav-link-icon" />
-              Settings
+              Настройки
             </NavLink>
           </li>
         </ul>
@@ -91,7 +91,7 @@ export default function Sidebar() {
           className="flex items-center w-full px-4 py-2.5 text-neutral-700 dark:text-neutral-300 rounded-lg transition-all duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-700"
         >
           <FiLogOut className="mr-3 text-lg opacity-80" />
-          Logout
+          Выйти
         </button>
       </div>
     </aside>

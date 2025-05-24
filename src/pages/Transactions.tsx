@@ -7,12 +7,12 @@ export default function Transactions() {
       <div className="flex items-center">
         <FiList className="h-6 w-6 text-primary-500 mr-2" />
         <h1 className="text-2xl font-semibold text-neutral-900 dark:text-white">
-          Transactions
+          Транзакции
         </h1>
       </div>
 
       <p className="text-neutral-600 dark:text-neutral-400">
-        View, search, and manage all your transactions in one place.
+        Смотрите, изучайте и управляйте своими транзакциями в одном месте.
       </p>
 
       <TransactionList />

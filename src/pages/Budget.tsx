@@ -175,7 +175,7 @@ export default function Budget() {
         <div className="flex items-center">
           <FiTarget className="h-6 w-6 text-primary-500 mr-2" />
           <h1 className="text-2xl font-semibold text-neutral-900 dark:text-white">
-            Budget Planner
+            Ограничение трат
           </h1>
         </div>
         <div className="flex items-center bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 p-1">
@@ -209,7 +209,7 @@ export default function Budget() {
       >
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-medium text-neutral-900 dark:text-white">
-            Monthly Budgets
+            Бюджеты
           </h2>
           <button
             onClick={() => {
@@ -221,7 +221,7 @@ export default function Budget() {
             {isAddingBudget ? 'Cancel' : (
               <>
                 <FiPlusCircle className="h-4 w-4 mr-1" />
-                Add Budget
+                Добавить бюджет
               </>
             )}
           </button>
@@ -238,12 +238,12 @@ export default function Budget() {
             className="mb-6 p-4 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg"
           >
             <h3 className="text-md font-medium text-neutral-900 dark:text-white mb-4">
-              Create New Budget
+              Создать новый бюджет
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div>
                 <label htmlFor="category" className="form-label">
-                  Category
+                  Категория
                 </label>
                 <select
                   id="category"
@@ -252,7 +252,7 @@ export default function Budget() {
                   onChange={(e) => setNewBudget({ ...newBudget, category: e.target.value })}
                   required
                 >
-                  <option value="">Select a category</option>
+                  <option value="">Выберите категорию</option>
                   {expenseCategories.map(category => (
                     <option key={category.id} value={category.name}>
                       {category.name}
@@ -265,7 +265,7 @@ export default function Budget() {
               </div>
               <div>
                 <label htmlFor="amount" className="form-label">
-                  Budget Amount
+                  Сумма бюджета
                 </label>
                 <input
                   id="amount"
@@ -286,7 +286,7 @@ export default function Budget() {
                   required
                 />
                 {newBudget.amount <= 0 && (
-                  <p className="text-error-500 text-sm mt-1">Amount must be greater than 0.</p>
+                  <p className="text-error-500 text-sm mt-1">Сумма должна быть больше 0.</p>
                 )}
               </div>
             </div>
@@ -296,7 +296,7 @@ export default function Budget() {
                 disabled={!newBudget.category || newBudget.amount <= 0}
                 className="btn btn-primary"
               >
-                Add Budget
+                Добавить бюджет
               </button>
             </div>
           </motion.div>
@@ -324,7 +324,7 @@ export default function Budget() {
                     <div className="space-y-4">
                       <div className="flex justify-between">
                         <h3 className="text-md font-medium text-neutral-900 dark:text-white">
-                          Edit Budget
+                          Редактировать бюджет
                         </h3>
                         <div className="flex space-x-2">
                           <button
@@ -337,7 +337,7 @@ export default function Budget() {
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="form-label">Category</label>
+                          <label className="form-label">Категория</label>
                           <select
                             className="form-input"
                             value={budget.category}
@@ -351,7 +351,7 @@ export default function Budget() {
                           </select>
                         </div>
                         <div>
-                          <label className="form-label">Budget Amount</label>
+                          <label className="form-label">Сумма</label>
                           <input
                             type="number"
                             min="0"
@@ -370,7 +370,7 @@ export default function Budget() {
                           className="btn btn-primary"
                         >
                           <FiCheck className="h-4 w-4 mr-1" />
-                          Save Changes
+                          Сохранить изменения
                         </button>
                       </div>
                     </div>
@@ -382,7 +382,7 @@ export default function Budget() {
                             {budget.category}
                           </h3>
                           <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                            Budget: {formatCurrency(budget.amount)}
+                            Бюджет: {formatCurrency(budget.amount)}
                           </p>
                         </div>
                         <div className="flex space-x-2">
@@ -402,7 +402,7 @@ export default function Budget() {
                       </div>
                       <div className="flex justify-between text-sm mb-1">
                         <span className="text-neutral-700 dark:text-neutral-300">
-                          Spent: {formatCurrency(currentSpending)}
+                          Потрачено: {formatCurrency(currentSpending)}
                         </span>
                         <span className={`font-medium ${
                           percentage >= 90 
@@ -423,11 +423,11 @@ export default function Budget() {
                       <div className="mt-2 text-xs text-neutral-900 dark:text-neutral-100">
                         {currentSpending > budget.amount ? (
                           <p className="text-error-600 dark:text-error-400">
-                            You've exceeded your budget by {formatCurrency(currentSpending - budget.amount)}
+                            Вы превысили свой бюджет на {formatCurrency(currentSpending - budget.amount)}
                           </p>
                         ) : (
                           <p>
-                            Remaining: {formatCurrency(budget.amount - currentSpending)}
+                            Остаётся: {formatCurrency(budget.amount - currentSpending)}
                           </p>
                         )}
                       </div>
@@ -441,10 +441,10 @@ export default function Budget() {
           <div className="text-center py-12 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-dashed border-neutral-300 dark:border-neutral-700">
             <FiTarget className="h-12 w-12 mx-auto text-neutral-400 dark:text-neutral-500 mb-4" />
             <h3 className="text-lg font-medium text-neutral-900 dark:text-white mb-2">
-              No budgets set up yet
+              Нет бюджетов
             </h3>
             <p className="text-neutral-600 dark:text-neutral-400 max-w-md mx-auto mb-6">
-              Create budgets to track your spending and stay on top of your financial goals.
+              Создайте бюджет, чтобы овладеть своими финансами.
             </p>
             <button
               onClick={() => {
@@ -454,7 +454,7 @@ export default function Budget() {
               className="btn btn-primary"
             >
               <FiPlusCircle className="h-4 w-4 mr-1" />
-              Create Your First Budget
+              Создайте первый бюджет
             </button>
           </div>
         )}
@@ -470,7 +470,7 @@ export default function Budget() {
           className="card"
         >
           <h2 className="text-lg font-medium text-neutral-900 dark:text-white mb-4">
-            Unbudgeted Expenses
+            Категории неограниченные бюджетом 
           </h2>
           {Object.entries(expensesByCategory)
             .filter(([category]) => !budgets.some(budget => budget.category === category))
@@ -505,7 +505,7 @@ export default function Budget() {
               </div>
             ) : (
               <p className="text-neutral-600 dark:text-neutral-400 text-center py-6">
-                All your expense categories have budgets. Great job!
+                Все ваши категории трат ограничены бюджетом. Отличная работа!
               </p>
             )}
         </motion.div>

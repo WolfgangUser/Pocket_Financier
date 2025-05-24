@@ -25,22 +25,22 @@ export default function PublicLayout() {
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-800 flex flex-col items-center justify-center text-white p-12">
           <div className="max-w-md text-center">
-            <h2 className="text-3xl font-bold mb-6">Take control of your finances</h2>
+            <h2 className="text-3xl font-bold mb-6">Возьмите под контроль ваши финансы</h2>
             <p className="text-xl text-primary-100 mb-8">
-              Track expenses, monitor your spending habits, and achieve your financial goals with FinTrack.
+              Отслеживайте траты, следите за своими привычками в расходах и достигайте ваших финансовых целей с PocketFin.
             </p>
             <div className="grid grid-cols-2 gap-6 mb-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <h3 className="font-semibold text-lg mb-2">Easy Tracking</h3>
-                <p className="text-primary-100">Log your transactions quickly and categorize them automatically.</p>
+                <h3 className="font-semibold text-lg mb-2">Простое отслеживание</h3>
+                <p className="text-primary-100">Вносите ваши траты, которые автоматически поделятся на категории.</p>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <h3 className="font-semibold text-lg mb-2">Smart Reports</h3>
-                <p className="text-primary-100">Get insights with beautiful charts and detailed analysis.</p>
+                <h3 className="font-semibold text-lg mb-2">Умная отчетность</h3>
+                <p className="text-primary-100">Получайте аналитику ваших финансов в доступной форме.</p>
               </div>
             </div>
             <div className="text-sm text-primary-200">
-              Demo credentials: demo@example.com / password
+              Гостевой аккаунт: demo@example.com / password
             </div>
           </div>
         </div>

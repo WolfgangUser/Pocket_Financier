@@ -59,11 +59,11 @@ const initialState: TransactionsState = {
 };
 
 const defaultCategories: Category[] = [
-  { id: '1', name: 'Food & Dining', color: '#FF5630', icon: 'utensils', type: 'expense' },
-  { id: '2', name: 'Transportation', color: '#FFAB00', icon: 'car', type: 'expense' },
-  { id: '3', name: 'Housing', color: '#36B37E', icon: 'home', type: 'expense' },
-  { id: '4', name: 'Salary', color: '#36B37E', icon: 'wallet', type: 'income' },
-  { id: '5', name: 'Other', color: '#6B778C', icon: 'circle', type: 'both' },
+  { id: '1', name: 'Продукты', color: '#FF5630', icon: 'utensils', type: 'expense' },
+  { id: '2', name: 'Транспорт', color: '#FFAB00', icon: 'car', type: 'expense' },
+  { id: '3', name: 'Быт', color: '#36B37E', icon: 'home', type: 'expense' },
+  { id: '4', name: 'Зарплата', color: '#36B37E', icon: 'wallet', type: 'income' },
+  { id: '5', name: 'Другое', color: '#6B778C', icon: 'circle', type: 'both' },
 ];
 
 // Create context

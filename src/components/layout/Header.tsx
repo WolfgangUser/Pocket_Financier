@@ -47,7 +47,7 @@ export default function Header() {
               className="btn btn-primary"
             >
               <FiPlus className="h-4 w-4 mr-1" />
-              <span>Add Transaction</span>
+              <span>Добавить транзакцию</span>
             </button>
             
             <ThemeToggle />
@@ -73,7 +73,7 @@ export default function Header() {
                   `nav-link ${isActive ? 'active' : ''}`
                 }
               >
-                Dashboard
+                Дашборд
               </NavLink>
               <NavLink
                 to="/transactions"
@@ -82,7 +82,7 @@ export default function Header() {
                   `nav-link ${isActive ? 'active' : ''}`
                 }
               >
-                Transactions
+                Транзакции
               </NavLink>
               <NavLink
                 to="/reports"
@@ -91,7 +91,7 @@ export default function Header() {
                   `nav-link ${isActive ? 'active' : ''}`
                 }
               >
-                Reports
+                Отчетность
               </NavLink>
               <NavLink
                 to="/budget"
@@ -100,7 +100,7 @@ export default function Header() {
                   `nav-link ${isActive ? 'active' : ''}`
                 }
               >
-                Budget
+                Бюджет
               </NavLink>
               <NavLink
                 to="/settings"
@@ -109,14 +109,14 @@ export default function Header() {
                   `nav-link ${isActive ? 'active' : ''}`
                 }
               >
-                Settings
+                Настройки
               </NavLink>
               
               <button 
                 onClick={logout}
                 className="w-full text-left nav-link text-error-500 hover:bg-error-50 dark:hover:bg-error-900/30"
               >
-                Logout
+                Выйти
               </button>
             </div>
           </motion.div>
@@ -147,7 +147,7 @@ export default function Header() {
               >
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-medium text-neutral-900 dark:text-white">
-                    Add Transaction
+                    Добавить транзакцию
                   </h3>
                   <button
                     onClick={toggleTransactionForm}

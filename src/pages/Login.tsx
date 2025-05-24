@@ -26,10 +26,10 @@ export default function Login() {
     <div>
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">
-          Welcome back
+          Добро пожаловать!
         </h1>
         <p className="text-neutral-600 dark:text-neutral-400">
-          Sign in to your account to continue
+          Войдите в аккаунт, чтобы продолжить
         </p>
       </div>
 
@@ -47,7 +47,7 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="email" className="form-label">
-            Email address
+            Почта
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -68,14 +68,14 @@ export default function Login() {
         <div>
           <div className="flex justify-between">
             <label htmlFor="password" className="form-label">
-              Password
+              Пароль
             </label>
             <button
               type="button"
               onClick={() => setShowHint(!showHint)}
               className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300"
             >
-              Need a hint?
+              Нужна подсказка?
             </button>
           </div>
           <div className="relative">
@@ -100,7 +100,7 @@ export default function Login() {
               exit={{ opacity: 0, height: 0 }}
               className="mt-2 text-sm text-neutral-600 dark:text-neutral-400"
             >
-              Use demo@example.com / password to log in
+              Используйте demo@example.com / password для входа
             </motion.p>
           )}
         </div>
@@ -117,10 +117,10 @@ export default function Login() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Signing in...
+                Выполняется вход...
               </span>
             ) : (
-              'Sign in'
+              'Войти'
             )}
           </button>
         </div>
@@ -131,19 +131,19 @@ export default function Login() {
             onClick={handleDemoLogin}
             className="btn btn-secondary w-full"
           >
-            Try demo account
+            Зайти через гостевой аккаунт
           </button>
         </div>
       </form>
 
       <div className="mt-8 text-center">
         <p className="text-neutral-600 dark:text-neutral-400">
-          Don't have an account?{' '}
+          Нет аккаунта?{' '}
           <Link
             to="/register"
             className="font-medium text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300"
           >
-            Sign up
+            Зарегистрироваться
           </Link>
         </p>
       </div>

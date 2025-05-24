@@ -20,11 +20,11 @@ export default function NotFound() {
         </h1>
         
         <h2 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
-          Page Not Found
+          Страница не найдена
         </h2>
         
         <p className="text-neutral-600 dark:text-neutral-400 mb-8">
-          The page you are looking for doesn't exist or has been moved.
+          Страница отсутствует.
         </p>
         
         <Link
@@ -32,7 +32,7 @@ export default function NotFound() {
           className="inline-flex items-center justify-center btn btn-primary"
         >
           <FiHome className="h-4 w-4 mr-2" />
-          Return to Dashboard
+          Вернуться к Дашборду
         </Link>
       </motion.div>
     </div>

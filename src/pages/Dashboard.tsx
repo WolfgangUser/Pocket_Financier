@@ -156,7 +156,7 @@ export default function Dashboard() {
       {/* Page title and month selector */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-2xl font-semibold text-neutral-900 dark:text-white">
-          Financial Overview
+          Обзор финансов
         </h1>
         
         <div className="flex items-center bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 p-1">
@@ -196,7 +196,7 @@ export default function Dashboard() {
           </div>
           <div>
             <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-              Total Income
+              Сумма доходов
             </p>
             <p className="text-2xl font-semibold text-accent-600 dark:text-accent-400">
               {formatCurrency(summaryData.income)}
@@ -217,7 +217,7 @@ export default function Dashboard() {
           </div>
           <div>
             <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-              Total Expenses
+              Сумма расходов
             </p>
             <p className="text-2xl font-semibold text-error-600 dark:text-error-400">
               {formatCurrency(summaryData.expenses)}
@@ -238,7 +238,7 @@ export default function Dashboard() {
           </div>
           <div>
             <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-              Current Balance
+              Текущий баланс
             </p>
             <p className={`text-2xl font-semibold ${getBalanceColor()}`}>
               {formatCurrency(summaryData.balance)}
@@ -261,7 +261,7 @@ export default function Dashboard() {
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-medium text-neutral-900 dark:text-white flex items-center">
               <FiPieChart className="mr-2 text-neutral-500 dark:text-neutral-400" />
-              Incomes by Category
+              Доходы по категориям
             </h2>
           </div>
           <div className="h-64">
@@ -291,7 +291,7 @@ export default function Dashboard() {
             ) : (
               <div className="h-full flex items-center justify-center">
                 <p className="text-neutral-500 dark:text-neutral-400">
-                  No income data for this month
+                  Доходы в этом месяце отсутствуют
                 </p>
               </div>
             )}
@@ -309,7 +309,7 @@ export default function Dashboard() {
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-medium text-neutral-900 dark:text-white flex items-center">
               <FiCalendar className="mr-2 text-neutral-500 dark:text-neutral-400" />
-              Daily Expenses
+              Траты за день
             </h2>
           </div>
           
@@ -339,7 +339,7 @@ export default function Dashboard() {
             ) : (
               <div className="h-full flex items-center justify-center">
                 <p className="text-neutral-500 dark:text-neutral-400">
-                  No expense data for this month
+                  Траты в этом месяце отсутствуют
                 </p>
               </div>
             )}
@@ -357,13 +357,13 @@ export default function Dashboard() {
       >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-medium text-neutral-900 dark:text-white">
-            Recent Transactions
+            Последние транзакции
           </h2>
           <button
             onClick={() => setShowTransactionForm(true)}
             className="btn btn-primary btn-sm"
           >
-            Add Transaction
+            Добавить транзакцию
           </button>
         </div>
 
@@ -372,10 +372,10 @@ export default function Dashboard() {
             <table className="w-full">
               <thead className="bg-neutral-50 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 text-left text-xs font-medium uppercase tracking-wider">
                 <tr>
-                  <th className="px-4 py-2">Date</th>
-                  <th className="px-4 py-2">Description</th>
-                  <th className="px-4 py-2">Category</th>
-                  <th className="px-4 py-2 text-right">Amount</th>
+                  <th className="px-4 py-2">Дата</th>
+                  <th className="px-4 py-2">Описание</th>
+                  <th className="px-4 py-2">Категория</th>
+                  <th className="px-4 py-2 text-right">Сумма</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
@@ -407,13 +407,13 @@ export default function Dashboard() {
         ) : (
           <div className="text-center py-6">
             <p className="text-neutral-500 dark:text-neutral-400">
-              No transactions for this month yet.
+              Транзакции в этом месяце отсутствуют
             </p>
             <button
               onClick={() => setShowTransactionForm(true)}
               className="mt-2 text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300"
             >
-              Add your first transaction
+              Добавьте вашу первую транзакцию
             </button>
           </div>
         )}
@@ -442,7 +442,7 @@ export default function Dashboard() {
             >
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-medium text-neutral-900 dark:text-white">
-                  Add Transaction
+                  Добавить транзакцию
                 </h3>
                 <button
                   onClick={() => setShowTransactionForm(false)}

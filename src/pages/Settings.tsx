@@ -51,12 +51,12 @@ export default function Settings() {
       <div className="flex items-center">
         <FiSettings className="h-6 w-6 text-primary-500 mr-2" />
         <h1 className="text-2xl font-semibold text-neutral-900 dark:text-white">
-          Settings
+          Настройки
         </h1>
       </div>
 
       <p className="text-neutral-600 dark:text-neutral-400">
-        Manage your account settings and preferences.
+        Управляйте настройками
       </p>
 
       {/* Settings tabs */}
@@ -70,7 +70,7 @@ export default function Settings() {
                 : 'text-neutral-600 dark:text-neutral-400'
             }`}
           >
-            Profile
+            Профиль
           </button>
           <button
             onClick={() => setProfileTab(false)}
@@ -80,7 +80,7 @@ export default function Settings() {
                 : 'text-neutral-600 dark:text-neutral-400'
             }`}
           >
-            Categories
+            Категории
           </button>
         </div>
 
@@ -113,7 +113,7 @@ export default function Settings() {
                 {/* Theme toggle */}
                 <div className="border-t border-neutral-200 dark:border-neutral-700 pt-6">
                   <h3 className="text-lg font-medium text-neutral-900 dark:text-white mb-4">
-                    Appearance
+                    Тема
                   </h3>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
@@ -145,11 +145,11 @@ export default function Settings() {
                 {/* Account section */}
                 <div className="border-t border-neutral-200 dark:border-neutral-700 pt-6">
                   <h3 className="text-lg font-medium text-neutral-900 dark:text-white mb-4">
-                    Account
+                    Аккаунт
                   </h3>
                   <div className="space-y-4">
                     <div>
-                      <label htmlFor="name" className="form-label">Full Name</label>
+                      <label htmlFor="name" className="form-label">Полное имя</label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                           <FiUser className="text-neutral-500 dark:text-neutral-400" />
@@ -166,7 +166,7 @@ export default function Settings() {
                     </div>
                     
                     <div>
-                      <label htmlFor="email" className="form-label">Email Address</label>
+                      <label htmlFor="email" className="form-label">Почта</label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                           <FiMail className="text-neutral-500 dark:text-neutral-400" />
@@ -183,7 +183,7 @@ export default function Settings() {
                     </div>
                     
                     <div>
-                      <label htmlFor="password" className="form-label">Password</label>
+                      <label htmlFor="password" className="form-label">Пароль</label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                           <FiLock className="text-neutral-500 dark:text-neutral-400" />
@@ -198,7 +198,7 @@ export default function Settings() {
                         />
                       </div>
                       <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-                        This is a demo app, password cannot be changed.
+                        В тестовой версии нельзя изменить пароль.
                       </p>
                     </div>
                   </div>
@@ -207,14 +207,14 @@ export default function Settings() {
                 {/* Logout button */}
                 <div className="border-t border-neutral-200 dark:border-neutral-700 pt-6">
                   <h3 className="text-lg font-medium text-neutral-900 dark:text-white mb-4">
-                    Session
+                    Сессия
                   </h3>
                   <button
                     onClick={logout}
                     className="btn bg-error-500 text-white hover:bg-error-600 focus:ring-error-500"
                   >
                     <FiLogOut className="h-4 w-4 mr-2" />
-                    Logout
+                    Выйти
                   </button>
                 </div>
               </div>
@@ -229,7 +229,7 @@ export default function Settings() {
             >
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-lg font-medium text-neutral-900 dark:text-white">
-                  Transaction Categories
+                  Категории транзакций
                 </h3>
                 <button
                   onClick={() => setIsAddingCategory(!isAddingCategory)}
@@ -249,13 +249,13 @@ export default function Settings() {
                   className="mb-6 p-4 bg-neutral-50 dark:bg-neutral-750 rounded-lg"
                 >
                   <h4 className="text-md font-medium text-neutral-900 dark:text-white mb-4">
-                    Create New Category
+                    Создать новую категорию
                   </h4>
                   
                   <div className="space-y-4">
                     <div>
                       <label htmlFor="categoryName" className="form-label">
-                        Category Name
+                        Название категории
                       </label>
                       <input
                         id="categoryName"
@@ -269,7 +269,7 @@ export default function Settings() {
                     
                     <div>
                       <label className="form-label">
-                        Category Type
+                        Тип категории
                       </label>
                       <div className="flex border border-neutral-200 dark:border-neutral-700 rounded-lg overflow-hidden">
                         <button
@@ -281,7 +281,7 @@ export default function Settings() {
                           }`}
                           onClick={() => setNewCategory({ ...newCategory, type: 'expense' })}
                         >
-                          Expense
+                          Траты
                         </button>
                         <button
                           type="button"
@@ -292,7 +292,7 @@ export default function Settings() {
                           }`}
                           onClick={() => setNewCategory({ ...newCategory, type: 'income' })}
                         >
-                          Income
+                          Доходы
                         </button>
                         <button
                           type="button"
@@ -303,14 +303,14 @@ export default function Settings() {
                           }`}
                           onClick={() => setNewCategory({ ...newCategory, type: 'both' })}
                         >
-                          Both
+                          Оба
                         </button>
                       </div>
                     </div>
                     
                     <div>
                       <label className="form-label">
-                        Category Color
+                        Цвет категории
                       </label>
                       <div className="grid grid-cols-8 gap-2">
                         {categoryColors.map((color) => (
@@ -338,7 +338,7 @@ export default function Settings() {
                       disabled={!newCategory.name}
                       className="btn btn-primary"
                     >
-                      Add Category
+                      Добавить категорию
                     </button>
                   </div>
                 </motion.div>
@@ -349,7 +349,7 @@ export default function Settings() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="text-md font-medium text-neutral-900 dark:text-white mb-2">
-                      Expense Categories
+                      Категории трат
                     </h4>
                     <div className="space-y-2">
                       {categories
@@ -373,7 +373,7 @@ export default function Settings() {
                   
                   <div>
                     <h4 className="text-md font-medium text-neutral-900 dark:text-white mb-2">
-                      Income Categories
+                      Категории доходов
                     </h4>
                     <div className="space-y-2">
                       {categories

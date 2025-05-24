@@ -55,7 +55,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
           }`}
           onClick={() => setType('expense')}
         >
-          Expense
+          Траты
         </button>
         <button
           type="button"
@@ -66,7 +66,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
           }`}
           onClick={() => setType('income')}
         >
-          Income
+          Доходы
         </button>
       </div>
 
@@ -79,7 +79,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
       {/* Amount */}
       <div className="mb-4">
         <label htmlFor="amount" className="form-label">
-          Amount
+          Сумма
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -92,7 +92,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
             className="form-input pl-10"
             placeholder="0.00"
             {...register('amount', { 
-              required: 'Amount is required',
+              required: 'Сумма обязательна',
               min: { value: 0.01, message: 'Amount must be greater than 0' },
             })}
           />
@@ -105,7 +105,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
       {/* Description */}
       <div className="mb-4">
         <label htmlFor="description" className="form-label">
-          Description
+          Описание
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -115,7 +115,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
             id="description"
             type="text"
             className="form-input pl-10"
-            placeholder="What was this for?"
+            placeholder="Для чего была транзакция?"
             {...register('description', { 
               //required: 'Description is required',
               maxLength: { value: 100, message: 'Description is too long' },
@@ -130,7 +130,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
       {/* Category */}
       <div className="mb-4">
         <label htmlFor="category" className="form-label">
-          Category
+          Категория
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -139,9 +139,9 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
           <select
             id="category"
             className="form-input pl-10"
-            {...register('category', { required: 'Category is required' })}
+            {...register('category', { required: 'Категория обязательна' })}
           >
-            <option value="">Select a category</option>
+            <option value="">Выберите категорию</option>
             {filteredCategories.map(category => (
               <option key={category.id} value={category.name}>
                 {category.name}
@@ -157,7 +157,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
       {/* Date */}
       <div className="mb-6">
         <label htmlFor="date" className="form-label">
-          Date
+          Дата
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -167,7 +167,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
             id="date"
             type="date"
             className="form-input pl-10"
-            {...register('date', { required: 'Date is required' })}
+            {...register('date', { required: 'Дата обязательна' })}
           />
         </div>
         {errors.date && (
@@ -182,7 +182,7 @@ export default function TransactionForm({ transaction, onClose }: TransactionFor
           onClick={onClose}
           className="btn btn-secondary"
         >
-          Cancel
+          Отмена
         </button>
         <button
           type="submit"

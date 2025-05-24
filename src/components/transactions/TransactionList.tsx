@@ -42,7 +42,7 @@ export default function TransactionList() {
   };
 
   const handleDelete = (id: string) => {
-    if (window.confirm('Are you sure you want to delete this transaction?')) {
+    if (window.confirm('Вы точно хотите удалить данную транзакцию?')) {
       deleteTransaction(id);
     }
   };
@@ -68,8 +68,8 @@ export default function TransactionList() {
     return (
       <EmptyState
         icon={<FiSearch className="h-8 w-8" />}
-        title="No transactions yet"
-        description="Add your first income or expense to start tracking your finances."
+        title="Нет транзакций"
+        description="Добавьте первую транзакцию, чтобы взять под контроль свои финансы."
         action={
           <button
             onClick={openTransactionForm}
@@ -95,7 +95,7 @@ export default function TransactionList() {
             <input
               type="text"
               className="form-input pl-10"
-              placeholder="Search transactions..."
+              placeholder="Искать транзакции..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -107,7 +107,7 @@ export default function TransactionList() {
             className={`btn ${showFilters ? 'btn-primary' : 'btn-secondary'}`}
           >
             <FiFilter className="h-4 w-4 mr-2" />
-            Filters
+            Фильтры
           </button>
         </div>
         
@@ -125,7 +125,7 @@ export default function TransactionList() {
                 {/* Category filter */}
                 <div>
                   <label htmlFor="categoryFilter" className="form-label">
-                    Category
+                    Категория
                   </label>
                   <select
                     id="categoryFilter"
@@ -133,7 +133,7 @@ export default function TransactionList() {
                     value={categoryFilter}
                     onChange={(e) => setCategoryFilter(e.target.value)}
                   >
-                    <option value="">All Categories</option>
+                    <option value="">Все категории</option>
                     {categories.map(category => (
                       <option key={category.id} value={category.name}>
                         {category.name}
@@ -145,7 +145,7 @@ export default function TransactionList() {
                 {/* Type filter */}
                 <div>
                   <label htmlFor="typeFilter" className="form-label">
-                    Transaction Type
+                    Тип транзакции
                   </label>
                   <select
                     id="typeFilter"
@@ -153,9 +153,9 @@ export default function TransactionList() {
                     value={typeFilter}
                     onChange={(e) => setTypeFilter(e.target.value as 'all' | 'income' | 'expense')}
                   >
-                    <option value="all">All Types</option>
-                    <option value="income">Income</option>
-                    <option value="expense">Expense</option>
+                    <option value="all">Все типы</option>
+                    <option value="income">Доходы</option>
+                    <option value="expense">Расходы</option>
                   </select>
                 </div>
               </div>
@@ -166,7 +166,7 @@ export default function TransactionList() {
                   onClick={resetFilters}
                   className="btn btn-secondary"
                 >
-                  Reset Filters
+                  Сбросить фильтры
                 </button>
               </div>
             </motion.div>
@@ -178,18 +178,18 @@ export default function TransactionList() {
       <div className="bg-white dark:bg-neutral-800 rounded-lg overflow-hidden border border-neutral-200 dark:border-neutral-700">
         {filteredTransactions.length === 0 ? (
           <div className="p-6 text-center">
-            <p className="text-neutral-600 dark:text-neutral-400">No transactions match your filters.</p>
+            <p className="text-neutral-600 dark:text-neutral-400">Нет подходящих транзакций.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-neutral-50 dark:bg-neutral-700 border-b border-neutral-200 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Date</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Description</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Category</th>
-                  <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider">Amount</th>
-                  <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider">Actions</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Дата</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Описание</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Категория</th>
+                  <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider">Сумма</th>
+                  <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider">Действия</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
@@ -262,7 +262,7 @@ export default function TransactionList() {
               >
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-medium text-neutral-900 dark:text-white">
-                    {Object.keys(editingTransaction).length > 1 ? 'Edit' : 'Add'} Transaction
+                    {Object.keys(editingTransaction).length > 1 ? 'Edit' : 'Add'} Транзакция
                   </h3>
                   <button
                     onClick={() => setEditingTransaction(null)}

@@ -18,7 +18,7 @@ export default function ProtectedLayout() {
       <div className="flex items-center justify-center min-h-screen bg-neutral-50 dark:bg-neutral-900">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-primary-500 border-t-transparent"></div>
-          <p className="mt-2 text-neutral-600 dark:text-neutral-400">Loading...</p>
+          <p className="mt-2 text-neutral-600 dark:text-neutral-400">Загрузка...</p>
         </div>
       </div>
     );

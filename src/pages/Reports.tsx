@@ -166,7 +166,7 @@ summaryData.savingsRate =
         <div className="flex items-center">
           <FiPieChart className="h-6 w-6 text-primary-500 mr-2" />
           <h1 className="text-2xl font-semibold text-neutral-900 dark:text-white">
-            Financial Reports
+            Финансовая отчетность
           </h1>
         </div>
         
@@ -180,7 +180,7 @@ summaryData.savingsRate =
                 : 'hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'
             }`}
           >
-            Month
+            Месяц
           </button>
           <button
             onClick={() => setReportPeriod('threeMonths')}
@@ -190,7 +190,7 @@ summaryData.savingsRate =
                 : 'hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'
             }`}
           >
-            3 Months
+            3 Месяца
           </button>
           <button
             onClick={() => setReportPeriod('sixMonths')}
@@ -200,7 +200,7 @@ summaryData.savingsRate =
                 : 'hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'
             }`}
           >
-            6 Months
+            6 Месяцев
           </button>
           <button
             onClick={() => setReportPeriod('year')}
@@ -210,13 +210,13 @@ summaryData.savingsRate =
                 : 'hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'
             }`}
           >
-            Year
+            Год
           </button>
         </div>
       </div>
       
       <p className="text-neutral-600 dark:text-neutral-400">
-        Period: {format(dateRange.start, 'MMMM d, yyyy')} - {format(dateRange.end, 'MMMM d, yyyy')}
+        Период: {format(dateRange.start, 'MMMM d, yyyy')} - {format(dateRange.end, 'MMMM d, yyyy')}
       </p>
 
       {/* Summary cards */}
@@ -230,7 +230,7 @@ summaryData.savingsRate =
           className="card"
         >
           <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-1">
-            Total Income
+            Сумма доходов
           </p>
           <p className="text-2xl font-semibold text-accent-600 dark:text-accent-400">
             {formatCurrency(summaryData.income)}
@@ -246,7 +246,7 @@ summaryData.savingsRate =
           className="card"
         >
           <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-1">
-            Total Expenses
+            Сумма трат
           </p>
           <p className="text-2xl font-semibold text-error-600 dark:text-error-400">
             {formatCurrency(summaryData.expense)}
@@ -262,7 +262,7 @@ summaryData.savingsRate =
           className="card"
         >
           <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-1">
-            Net Savings
+            Состояние счёта
           </p>
           <p className={`text-2xl font-semibold ${
             summaryData.balance >= 0 
@@ -282,7 +282,7 @@ summaryData.savingsRate =
           className="card"
         >
           <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-1">
-            Savings Rate
+            Оценка состояния счета
           </p>
           <p className={`text-2xl font-semibold ${
             summaryData.savingsRate >= 0 
@@ -305,7 +305,7 @@ summaryData.savingsRate =
           className="card"
         >
           <h2 className="text-lg font-medium text-neutral-900 dark:text-white mb-4">
-            Expense Breakdown
+            Расклад трат
           </h2>
           
           <div className="h-80">
@@ -335,7 +335,7 @@ summaryData.savingsRate =
             ) : (
               <div className="h-full flex items-center justify-center">
                 <p className="text-neutral-500 dark:text-neutral-400">
-                  No expense data for the selected period
+                   В течении выбранного периода траты не совершались
                 </p>
               </div>
             )}
@@ -351,7 +351,7 @@ summaryData.savingsRate =
           className="card"
         >
           <h2 className="text-lg font-medium text-neutral-900 dark:text-white mb-4">
-            Income vs Expense Trend
+            Сравнение Расходов и Доходов
           </h2>
           
           <div className="h-80">
@@ -370,7 +370,7 @@ summaryData.savingsRate =
             ) : (
               <div className="h-full flex items-center justify-center">
                 <p className="text-neutral-500 dark:text-neutral-400">
-                  No data for the selected period
+                  Нет данных за выбранный период
                 </p>
               </div>
             )}
@@ -387,7 +387,7 @@ summaryData.savingsRate =
         className="card"
       >
         <h2 className="text-lg font-medium text-neutral-900 dark:text-white mb-4">
-          Top Spending Categories
+          Самые большие категории трат
         </h2>
         
         {expensePieData.length > 0 ? (
@@ -422,7 +422,7 @@ summaryData.savingsRate =
           </div>
         ) : (
           <p className="text-neutral-500 dark:text-neutral-400 text-center py-4">
-            No expense data for the selected period
+            Нет трат за выбранный период
           </p>
         )}
       </motion.div>
